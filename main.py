@@ -32,11 +32,18 @@ TETROMINOES={
 class Block:# 4 Block in sprite
     pass
 
-# class Tetromino:# 4 Block in 1 Tetromino
+class Tetromino:# 4 Block in 1 Tetromino
+    def __init__(self,tetris):
+        self.tetris=tetris
+    def update(self):
+        pass
+        
     
 class Tetris: # all Tetromino in the field
     def __init__(self,app):
         self.app=app
+        self.sprite_group=pg.sprite.Group()
+        self.tetromino=Tetromino(self)
 
     def draw_grid(self):
         for x in range(FIELD_SIZE[0]):
@@ -44,9 +51,12 @@ class Tetris: # all Tetromino in the field
                 pg.draw.rect(self.app.screen,(0,0,0),(x*TILE_SIZE,y*TILE_SIZE,TILE_SIZE,TILE_SIZE),1)# 1 is for border width
 
     def update(self):
-        pass 
+        self.tetromino.update()
+        self.sprite_group.update()
+
     def draw(self):
         self.draw_grid()# call function inside class needs self
+        self.sprite_group.draw(self.app.screen)
 
 class App:
     def __init__(self):
